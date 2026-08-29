@@ -1,26 +1,76 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #f1f1f1;
+  --color-bg-subdued: #e7e7e7;
+  --color-surface: #ffffff;
+  --color-surface-subdued: #f7f7f7;
+  --color-surface-hover: #f1f1f1;
+  --color-topbar: #1a1a1a;
+  --color-text: #303030;
+  --color-text-secondary: #616161;
+  --color-text-muted: #8a8a8a;
+  --color-border: #dedede;
+  --color-border-strong: #c9c9c9;
+  --color-action: #303030;
+  --color-action-hover: #1a1a1a;
+  --color-focus: #005bd3;
+  --color-success: #29845a;
+  --color-success-bg: #eaf4ee;
+  --color-warning: #8a6116;
+  --color-warning-bg: #fff1d6;
+  --color-error: #b42318;
+  --color-error-bg: #feeceb;
+  --color-info: #2c6ecb;
+  --color-info-bg: #eaf2ff;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-surface: 0 1px 0 rgba(0, 0, 0, 0.04);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-lg: 15px;
+  --text-title: 22px;
+  --background: var(--color-bg);
+  --foreground: var(--color-text);
+  --surface: var(--color-surface);
+  --muted: var(--color-text-secondary);
+  --border: var(--color-border);
+  --brand: var(--color-success);
+  --brand-soft: var(--color-success-bg);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: var(--text-base);
+  line-height: 1.45;
 }
+
+* { border-color: var(--color-border); }
+html { background: var(--background); }
+button, a, select { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 1px; }
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+.skeleton { position: relative; overflow: hidden; background: var(--color-bg-subdued); }
+.skeleton::after { animation: shimmer 1.5s infinite; background: linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent); content: ""; inset: 0; position: absolute; transform: translateX(-100%); }
+
+.admin-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-surface); }
+.admin-control { background: var(--color-surface); border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); box-shadow: 0 1px 0 rgba(0,0,0,.05); color: var(--color-text); min-height: 32px; }
+.admin-control:hover { background: var(--color-surface-hover); }
