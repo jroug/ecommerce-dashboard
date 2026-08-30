@@ -1,4 +1,5 @@
-import type { DashboardPeriod, DateRange, InventorySummary, OrderStatusSummary, RecentOrder, TopProduct } from "@/types/dashboard";
+import { orders } from "@/data/orders";
+import type { DashboardPeriod, DateRange, InventorySummary, OrderStatusSummary, TopProduct } from "@/types/dashboard";
 
 export const dashboardPeriods: Record<DateRange, DashboardPeriod> = {
   "7d": { stats: [
@@ -18,9 +19,9 @@ export const dashboardPeriods: Record<DateRange, DashboardPeriod> = {
 export const orderStatuses: OrderStatusSummary[] = [
   { status: "processing", label: "Processing", count: 24 }, { status: "pending", label: "Pending payment", count: 11 }, { status: "completed", label: "Completed", count: 318 }, { status: "cancelled", label: "Cancelled", count: 18 }, { status: "refunded", label: "Refunded", count: 11 },
 ];
-export const recentOrders: RecentOrder[] = [
-  { id: "#NS-1048", customer: "Maya Patel", initials: "MP", date: "Aug 29, 2026", status: "processing", total: 184.5 }, { id: "#NS-1047", customer: "Theo Martin", initials: "TM", date: "Aug 29, 2026", status: "completed", total: 96 }, { id: "#NS-1046", customer: "Sofia Chen", initials: "SC", date: "Aug 28, 2026", status: "pending", total: 248.75 }, { id: "#NS-1045", customer: "Daniel Brooks", initials: "DB", date: "Aug 28, 2026", status: "refunded", total: 74.2 }, { id: "#NS-1044", customer: "Amara Okafor", initials: "AO", date: "Aug 27, 2026", status: "cancelled", total: 129 },
-];
+export const recentOrders = [...orders]
+  .sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime())
+  .slice(0, 5);
 export const topProducts: TopProduct[] = [
   { id: "p1", name: "Canvas Weekender", category: "Bags", unitsSold: 184, revenue: 16560, color: "#cf7443" }, { id: "p2", name: "Essential Hoodie", category: "Apparel", unitsSold: 162, revenue: 11340, color: "#426b57" }, { id: "p3", name: "Everyday Sneakers", category: "Footwear", unitsSold: 118, revenue: 10620, color: "#637995" }, { id: "p4", name: "Ceramic Travel Mug", category: "Home", unitsSold: 221, revenue: 6630, color: "#a98451" }, { id: "p5", name: "Classic Cap", category: "Accessories", unitsSold: 145, revenue: 4350, color: "#736a8d" },
 ];

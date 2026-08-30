@@ -6,15 +6,15 @@ import {
 import type { ReactNode } from "react";
 
 const primaryNav = [
-  { label: "Home", href: "/dashboard", icon: Gauge, active: true },
-  { label: "Orders", href: "/orders", icon: ShoppingCart },
-  { label: "Products", href: "/products", icon: Package },
-  { label: "Customers", href: "/customers", icon: Users },
-  { label: "Discounts", href: "/discounts", icon: Tag },
-  { label: "Analytics", href: "/analytics", icon: BarChart3 },
+  { label: "Home", href: "/dashboard", icon: Gauge, section: "dashboard" },
+  { label: "Orders", href: "/orders", icon: ShoppingCart, section: "orders" },
+  { label: "Products", href: "/products", icon: Package, section: "products" },
+  { label: "Customers", href: "/customers", icon: Users, section: "customers" },
+  { label: "Discounts", href: "/discounts", icon: Tag, section: "discounts" },
+  { label: "Analytics", href: "/analytics", icon: BarChart3, section: "analytics" },
 ];
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({ children, activeSection = "dashboard", mobileTitle = "Dashboard" }: { children: ReactNode; activeSection?: string; mobileTitle?: string }) {
   return (
     <div className="min-h-screen bg-[var(--color-bg)] pt-14 lg:grid lg:grid-cols-[220px_1fr]">
       <header className="fixed inset-x-0 top-0 z-30 flex h-14 items-center bg-[var(--color-topbar)] px-3 text-white">
@@ -37,18 +37,20 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <aside className="fixed inset-y-0 left-0 top-14 z-20 hidden w-[220px] border-r bg-[#ebebeb] lg:flex lg:flex-col">
         <nav aria-label="Primary navigation" className="flex-1 space-y-0.5 px-2 py-3">
-          {primaryNav.map(({ label, href, icon: Icon, active }) => (
+          {primaryNav.map(({ label, href, icon: Icon, section }) => {
+            const active = section === activeSection;
+            return (
             <Link key={label} href={href} aria-current={active ? "page" : undefined} className={`flex h-8 items-center gap-2.5 rounded-[var(--radius-md)] px-2.5 text-[13px] font-medium transition-colors ${active ? "bg-white text-[var(--color-text)] shadow-[0_1px_0_rgba(0,0,0,.05)]" : "text-[var(--color-text-secondary)] hover:bg-black/[.05] hover:text-[var(--color-text)]"}`}>
               <Icon size={16} strokeWidth={2}/>{label}
             </Link>
-          ))}
+          )})}
           <div className="pt-4"><p className="px-2.5 pb-1.5 text-[12px] font-semibold text-[var(--color-text-secondary)]">Sales channels</p><Link href="/online-store" className="flex h-8 items-center gap-2.5 rounded-[var(--radius-md)] px-2.5 text-[13px] font-medium text-[var(--color-text-secondary)] hover:bg-black/[.05]"><Store size={16}/>Online Store</Link></div>
         </nav>
         <div className="border-t p-2"><Link href="/settings" className="flex h-8 items-center gap-2.5 rounded-[var(--radius-md)] px-2.5 text-[13px] font-medium text-[var(--color-text-secondary)] hover:bg-black/[.05]"><Settings size={16}/>Settings</Link></div>
       </aside>
 
       <div className="min-w-0 lg:col-start-2">
-        <div className="flex h-12 items-center border-b bg-[var(--color-surface)] px-4 lg:hidden"><button type="button" aria-label="Open navigation" className="admin-control flex size-8 items-center justify-center"><Menu size={18}/></button><span className="ml-3 text-[13px] font-semibold">Dashboard</span></div>
+        <div className="flex h-12 items-center border-b bg-[var(--color-surface)] px-4 lg:hidden"><button type="button" aria-label="Open navigation" className="admin-control flex size-8 items-center justify-center"><Menu size={18}/></button><span className="ml-3 text-[13px] font-semibold">{mobileTitle}</span></div>
         {children}
       </div>
     </div>

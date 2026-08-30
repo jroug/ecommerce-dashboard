@@ -5,6 +5,5 @@ export interface Stat { id: "revenue" | "orders" | "average-order-value" | "cust
 export interface RevenuePoint { label: string; revenue: number; }
 export interface DashboardPeriod { stats: Stat[]; revenue: RevenuePoint[]; }
 export interface OrderStatusSummary { status: OrderStatus; label: string; count: number; }
-export interface RecentOrder { id: string; customer: string; initials: string; date: string; status: OrderStatus; total: number; }
 export interface TopProduct { id: string; name: string; category: string; unitsSold: number; revenue: number; color: string; }
 export interface InventorySummary { lowStock: number; outOfStock: number; }
