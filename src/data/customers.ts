@@ -1,0 +1,28 @@
+import type { Customer, CustomerAddress } from "@/types/customer";
+
+const address = (city: string, country: string, countryCode: string, postcode: string): CustomerAddress => ({ address1: "12 Market Street", address2: "", city, state: "", postcode, country, countryCode });
+const customer = (id:number, firstName:string, lastName:string, email:string, phone:string, dateCreated:string, city:string, country:string, countryCode:string, postcode:string, ordersCount:number, totalSpent:string, lastOrderDate:string|null, tags:string[]=[]): Customer => {
+  const billing=address(city,country,countryCode,postcode);
+  return {id,firstName,lastName,email,phone,avatar:null,dateCreated,billing,shipping:{...billing},ordersCount,totalSpent,averageOrderValue:ordersCount? (Number(totalSpent)/ordersCount).toFixed(2):"0.00",lastOrderDate,tags,currency:"EUR"};
+};
+
+export const customers: Customer[] = [
+  customer(201,"Maria","Papadopoulou","maria.p@example.com","+30 694 221 8041","2025-11-12T10:12:00Z","Athens","Greece","GR","105 58",12,"1482.50","2026-08-29T11:42:00Z",["loyal","newsletter"]),
+  customer(202,"Andreas","Georgiou","andreas.g@example.com","+357 96 441 820","2026-08-20T08:34:00Z","Limassol","Cyprus","CY","3041",1,"84.50","2026-08-29T09:18:00Z",["new"]),
+  customer(203,"Sofia","Nikolaou","sofia.n@example.com","+30 698 510 2237","2024-06-04T14:21:00Z","Thessaloniki","Greece","GR","546 24",8,"846.20","2026-08-28T16:04:00Z",["vip"]),
+  customer(204,"Nikos","Demetriou","nikos.d@example.com","+30 693 118 6492","2025-02-18T12:45:00Z","Patras","Greece","GR","262 21",4,"428.90","2026-08-28T13:27:00Z"),
+  customer(205,"Elena","Kosta","elena.k@example.com","+30 697 430 2018","2026-08-03T16:10:00Z","Heraklion","Greece","GR","712 01",2,"163.00","2026-08-27T18:52:00Z",["new"]),
+  customer(206,"Theo","Martin","theo.m@example.com","+33 6 48 21 73 05","2025-09-22T07:50:00Z","Paris","France","FR","75003",6,"392.40","2026-08-27T10:15:00Z"),
+  customer(207,"Irene","Vassiliou","irene.v@example.com","+30 694 772 0941","2024-12-11T09:05:00Z","Athens","Greece","GR","116 35",3,"367.00","2026-08-26T14:38:00Z"),
+  customer(208,"Daniel","Brooks","daniel.b@example.com","+44 7700 912 884","2025-04-27T18:12:00Z","London","United Kingdom","GB","E2 7AA",9,"1014.80","2026-08-25T12:06:00Z",["vip"]),
+  customer(209,"Amara","Okafor","amara.o@example.com","+49 151 442 0923","2026-08-24T07:42:00Z","Berlin","Germany","DE","10115",1,"63.50","2026-08-24T08:44:00Z",["new"]),
+  customer(210,"Alexandra","Petrou","alexandra.p@example.com","+30 695 301 1169","2023-08-16T11:30:00Z","Volos","Greece","GR","382 21",18,"2641.75","2026-08-23T17:29:00Z",["vip","loyal"]),
+  customer(211,"Giorgos","Markou","giorgos.m@example.com","+30 697 944 6210","2026-07-29T14:02:00Z","Ioannina","Greece","GR","452 21",1,"118.00","2026-08-22T15:11:00Z"),
+  customer(212,"Chloe","Bernard","chloe.b@example.com","+33 6 21 90 43 18","2025-05-09T10:18:00Z","Lyon","France","FR","69002",5,"574.30","2026-08-21T10:37:00Z"),
+  customer(213,"Katerina","Ioannou","katerina.i@example.com","+30 694 662 8105","2026-08-18T18:22:00Z","Athens","Greece","GR","104 35",1,"59.90","2026-08-18T19:03:00Z",["new"]),
+  customer(214,"Lucas","Meyer","lucas.m@example.com","+49 151 776 5120","2024-10-01T12:14:00Z","Munich","Germany","DE","80331",3,"283.00","2026-08-16T09:21:00Z"),
+  customer(215,"Dimitra","Sarris","dimitra.s@example.com","+30 693 552 0874","2025-12-03T15:45:00Z","Kalamata","Greece","GR","241 00",7,"908.60","2026-08-12T14:55:00Z",["vip"]),
+  customer(216,"Oliver","Reed","oliver.r@example.com","+353 87 220 1468","2026-08-07T10:58:00Z","Dublin","Ireland","IE","D02",1,"77.50","2026-08-07T11:31:00Z",["new"]),
+  customer(219,"Isabella","Rossi","isabella.r@example.com","+39 320 448 2190","2026-08-26T09:16:00Z","Milan","Italy","IT","20121",0,"0.00",null,["new","newsletter"]),
+  customer(220,"Petros","Athanasiou","petros.a@example.com","+30 697 108 7721","2026-06-14T13:08:00Z","Larissa","Greece","GR","412 21",0,"0.00",null,["newsletter"]),
+];

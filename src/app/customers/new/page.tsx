@@ -1,0 +1,4 @@
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { AppShell } from "@/components/dashboard/AppShell";
+export default function NewCustomerPage(){return <AppShell activeSection="customers" mobileTitle="Add customer"><main className="mx-auto max-w-[760px] px-4 py-6 sm:px-6 lg:px-8"><Link href="/customers" className="mb-4 inline-flex items-center gap-1 text-[13px] font-medium text-[var(--color-text-secondary)]"><ArrowLeft size={15}/>Customers</Link><h1 className="text-[22px] font-semibold">Add customer</h1><section className="admin-card mt-4 p-5"><h2 className="text-[15px] font-semibold">Customer creation is coming next</h2><p className="mt-1 text-[13px] text-[var(--color-text-secondary)]">This route keeps the add-customer action available without introducing backend infrastructure.</p></section></main></AppShell>}
