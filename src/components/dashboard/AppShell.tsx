@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
   BarChart3, Bell, ChevronDown, CircleHelp, Gauge, Menu, Package,
-  Search, Settings, ShoppingCart, Store, Tag, Users,
+  Search, Settings, ShoppingCart, Store, Users,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -10,7 +10,6 @@ const primaryNav = [
   { label: "Orders", href: "/orders", icon: ShoppingCart, section: "orders" },
   { label: "Products", href: "/products", icon: Package, section: "products" },
   { label: "Customers", href: "/customers", icon: Users, section: "customers" },
-  { label: "Discounts", href: "/discounts", icon: Tag, section: "discounts" },
   { label: "Analytics", href: "/analytics", icon: BarChart3, section: "analytics" },
 ];
 
@@ -44,7 +43,6 @@ export function AppShell({ children, activeSection = "dashboard", mobileTitle = 
               <Icon size={16} strokeWidth={2}/>{label}
             </Link>
           )})}
-          <div className="pt-4"><p className="px-2.5 pb-1.5 text-[12px] font-semibold text-[var(--color-text-secondary)]">Sales channels</p><Link href="/online-store" className="flex h-8 items-center gap-2.5 rounded-[var(--radius-md)] px-2.5 text-[13px] font-medium text-[var(--color-text-secondary)] hover:bg-black/[.05]"><Store size={16}/>Online Store</Link></div>
         </nav>
         <div className="border-t p-2"><Link href="/settings" className="flex h-8 items-center gap-2.5 rounded-[var(--radius-md)] px-2.5 text-[13px] font-medium text-[var(--color-text-secondary)] hover:bg-black/[.05]"><Settings size={16}/>Settings</Link></div>
       </aside>
