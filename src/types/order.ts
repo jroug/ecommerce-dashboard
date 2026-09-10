@@ -1,11 +1,5 @@
 export type OrderStatus =
-  | "pending"
-  | "processing"
-  | "on-hold"
-  | "completed"
-  | "cancelled"
-  | "refunded"
-  | "failed";
+  "pending" | "processing" | "on-hold" | "completed" | "cancelled" | "refunded" | "failed";
 
 export type PaymentStatus = "paid" | "pending" | "refunded" | "failed";
 export type OrderSort = "newest" | "oldest" | "highest" | "lowest";
@@ -48,8 +42,19 @@ export interface OrderAddress {
 }
 
 export type FulfillmentStatus = "unfulfilled" | "fulfilled" | "shipped";
-export interface OrderTimelineEvent { id: number; title: string; description?: string; date: string; }
-export interface OrderNote { id: number; author: string; content: string; date: string; customerVisible: boolean; }
+export interface OrderTimelineEvent {
+  id: number;
+  title: string;
+  description?: string;
+  date: string;
+}
+export interface OrderNote {
+  id: number;
+  author: string;
+  content: string;
+  date: string;
+  customerVisible: boolean;
+}
 
 export interface OrderDetails extends Omit<Order, "lineItems"> {
   lineItems: OrderDetailLineItem[];

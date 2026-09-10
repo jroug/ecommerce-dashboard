@@ -3,4 +3,10 @@ import { AppShell } from "@/components/dashboard/AppShell";
 import { customers } from "@/data/customers";
 import { orders } from "@/data/orders";
 import { products } from "@/data/products";
-export default function AnalyticsRoute(){return <AppShell activeSection="analytics" mobileTitle="Analytics"><AnalyticsPage orders={orders} customers={customers} products={products}/></AppShell>}
+export default function AnalyticsRoute() {
+  return (
+    <AppShell activeSection="analytics" mobileTitle="Analytics">
+      <AnalyticsPage orders={orders} customers={customers} products={products} />
+    </AppShell>
+  );
+}

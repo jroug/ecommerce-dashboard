@@ -1,5 +1,66 @@
 import type { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
-export function FormField({label,helper,error,children}:{label:string;helper?:string;error?:string;children:ReactNode}){return <label className="block"><span className="mb-1 block text-[12px] font-medium text-[var(--color-text)]">{label}</span>{children}{error?<span className="mt-1 block text-[11px] text-[var(--color-error)]">{error}</span>:helper?<span className="mt-1 block text-[11px] text-[var(--color-text-muted)]">{helper}</span>:null}</label>}
-export function TextInput(props:InputHTMLAttributes<HTMLInputElement>){return <input {...props} className={`admin-control h-8 w-full px-2.5 text-[13px] outline-none ${props.className??""}`}/>}
-export function TextArea(props:TextareaHTMLAttributes<HTMLTextAreaElement>){return <textarea {...props} className={`admin-control w-full resize-y p-2.5 text-[13px] outline-none ${props.className??""}`}/>}
-export function Toggle({checked,onChange,label}:{checked:boolean;onChange:(checked:boolean)=>void;label:string}){return <label className="flex cursor-pointer items-center gap-2 text-[13px]"><button type="button" role="switch" aria-checked={checked} onClick={()=>onChange(!checked)} className={`relative h-5 w-9 rounded-full transition ${checked?"bg-[var(--color-success)]":"bg-[var(--color-border-strong)]"}`}><span className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition ${checked?"left-[18px]":"left-0.5"}`}/></button>{label}</label>}
+export function FormField({
+  label,
+  helper,
+  error,
+  children,
+}: {
+  label: string;
+  helper?: string;
+  error?: string;
+  children: ReactNode;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-1 block text-[12px] font-medium text-[var(--color-text)]">{label}</span>
+      {children}
+      {error ? (
+        <span className="mt-1 block text-[11px] text-[var(--color-error)]">{error}</span>
+      ) : helper ? (
+        <span className="mt-1 block text-[11px] text-[var(--color-text-muted)]">{helper}</span>
+      ) : null}
+    </label>
+  );
+}
+export function TextInput(props: InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <input
+      {...props}
+      className={`admin-control h-8 w-full px-2.5 text-[13px] outline-none ${props.className ?? ""}`}
+    />
+  );
+}
+export function TextArea(props: TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return (
+    <textarea
+      {...props}
+      className={`admin-control w-full resize-y p-2.5 text-[13px] outline-none ${props.className ?? ""}`}
+    />
+  );
+}
+export function Toggle({
+  checked,
+  onChange,
+  label,
+}: {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  label: string;
+}) {
+  return (
+    <label className="flex cursor-pointer items-center gap-2 text-[13px]">
+      <button
+        type="button"
+        role="switch"
+        aria-checked={checked}
+        onClick={() => onChange(!checked)}
+        className={`relative h-5 w-9 rounded-full transition ${checked ? "bg-[var(--color-success)]" : "bg-[var(--color-border-strong)]"}`}
+      >
+        <span
+          className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition ${checked ? "left-[18px]" : "left-0.5"}`}
+        />
+      </button>
+      {label}
+    </label>
+  );
+}

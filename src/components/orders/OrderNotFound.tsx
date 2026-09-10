@@ -1,3 +1,24 @@
 import Link from "next/link";
 import { ArrowLeft, FileQuestion } from "lucide-react";
-export function OrderNotFound(){return <main className="mx-auto flex min-h-[70vh] max-w-[700px] items-center justify-center px-4 py-10"><section className="admin-card w-full p-8 text-center"><span className="mx-auto flex size-12 items-center justify-center rounded-full bg-[var(--color-surface-hover)] text-[var(--color-text-secondary)]"><FileQuestion size={23}/></span><h1 className="mt-4 text-[20px] font-semibold">Order not found</h1><p className="mt-1 text-[13px] text-[var(--color-text-secondary)]">The order may have been removed, or the address is incorrect.</p><Link href="/orders" className="mt-5 inline-flex h-8 items-center gap-1.5 rounded-[var(--radius-md)] bg-[var(--color-action)] px-3 text-[12px] font-semibold text-white"><ArrowLeft size={14}/>Back to orders</Link></section></main>}
+export function OrderNotFound() {
+  return (
+    <main className="mx-auto flex min-h-[70vh] max-w-[700px] items-center justify-center px-4 py-10">
+      <section className="admin-card w-full p-8 text-center">
+        <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-[var(--color-surface-hover)] text-[var(--color-text-secondary)]">
+          <FileQuestion size={23} />
+        </span>
+        <h1 className="mt-4 text-[20px] font-semibold">Order not found</h1>
+        <p className="mt-1 text-[13px] text-[var(--color-text-secondary)]">
+          The order may have been removed, or the address is incorrect.
+        </p>
+        <Link
+          href="/orders"
+          className="mt-5 inline-flex h-8 items-center gap-1.5 rounded-[var(--radius-md)] bg-[var(--color-action)] px-3 text-[12px] font-semibold text-white"
+        >
+          <ArrowLeft size={14} />
+          Back to orders
+        </Link>
+      </section>
+    </main>
+  );
+}

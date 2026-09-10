@@ -63,14 +63,54 @@ body {
   line-height: 1.45;
 }
 
-* { border-color: var(--color-border); }
-html { background: var(--background); }
-button, a, select { -webkit-tap-highlight-color: transparent; }
-:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 1px; }
-@keyframes shimmer { 100% { transform: translateX(100%); } }
-.skeleton { position: relative; overflow: hidden; background: var(--color-bg-subdued); }
-.skeleton::after { animation: shimmer 1.5s infinite; background: linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent); content: ""; inset: 0; position: absolute; transform: translateX(-100%); }
+* {
+  border-color: var(--color-border);
+}
+html {
+  background: var(--background);
+}
+button,
+a,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 1px;
+}
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg-subdued);
+}
+.skeleton::after {
+  animation: shimmer 1.5s infinite;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  content: "";
+  inset: 0;
+  position: absolute;
+  transform: translateX(-100%);
+}
 
-.admin-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-surface); }
-.admin-control { background: var(--color-surface); border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); box-shadow: 0 1px 0 rgba(0,0,0,.05); color: var(--color-text); min-height: 32px; }
-.admin-control:hover { background: var(--color-surface-hover); }
+.admin-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-surface);
+}
+.admin-control {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  color: var(--color-text);
+  min-height: 32px;
+}
+.admin-control:hover {
+  background: var(--color-surface-hover);
+}

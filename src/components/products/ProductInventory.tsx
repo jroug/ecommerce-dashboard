@@ -1,4 +1,64 @@
 import type { ProductDetails } from "@/types/product";
 import { InventoryStatus } from "./InventoryStatus";
-import { FormField,TextInput,Toggle } from "./ProductFormField";
-export function ProductInventory({product,onChange,errors}:{product:ProductDetails;onChange:(patch:Partial<ProductDetails>)=>void;errors:{sku?:string;stock?:string}}){return <section className="admin-card p-4 sm:p-5"><div className="mb-4 flex items-center justify-between"><h2 className="text-[15px] font-semibold">Inventory</h2><InventoryStatus product={product}/></div><div className="grid gap-3 sm:grid-cols-2"><FormField label="SKU" error={errors.sku}><TextInput value={product.sku} onChange={(e)=>onChange({sku:e.target.value})}/></FormField><FormField label="Barcode / GTIN"><TextInput value={product.barcode} onChange={(e)=>onChange({barcode:e.target.value})}/></FormField></div><div className="mt-4 space-y-3 border-t pt-4"><Toggle checked={product.manageStock} onChange={(manageStock)=>onChange({manageStock})} label="Track quantity"/>{product.manageStock&&<div className="grid gap-3 sm:grid-cols-2"><FormField label="Stock quantity" error={errors.stock}><TextInput type="number" min="0" value={product.stockQuantity??0} onChange={(e)=>onChange({stockQuantity:Number(e.target.value)})}/></FormField><FormField label="Low stock threshold"><TextInput type="number" min="0" value={product.lowStockThreshold} onChange={(e)=>onChange({lowStockThreshold:Number(e.target.value)})}/></FormField></div>}<Toggle checked={product.backorders!=="no"} onChange={(enabled)=>onChange({backorders:enabled?"notify":"no"})} label="Allow purchases when out of stock"/></div></section>}
+import { FormField, TextInput, Toggle } from "./ProductFormField";
+export function ProductInventory({
+  product,
+  onChange,
+  errors,
+}: {
+  product: ProductDetails;
+  onChange: (patch: Partial<ProductDetails>) => void;
+  errors: { sku?: string; stock?: string };
+}) {
+  return (
+    <section className="admin-card p-4 sm:p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-[15px] font-semibold">Inventory</h2>
+        <InventoryStatus product={product} />
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <FormField label="SKU" error={errors.sku}>
+          <TextInput value={product.sku} onChange={(e) => onChange({ sku: e.target.value })} />
+        </FormField>
+        <FormField label="Barcode / GTIN">
+          <TextInput
+            value={product.barcode}
+            onChange={(e) => onChange({ barcode: e.target.value })}
+          />
+        </FormField>
+      </div>
+      <div className="mt-4 space-y-3 border-t pt-4">
+        <Toggle
+          checked={product.manageStock}
+          onChange={(manageStock) => onChange({ manageStock })}
+          label="Track quantity"
+        />
+        {product.manageStock && (
+          <div className="grid gap-3 sm:grid-cols-2">
+            <FormField label="Stock quantity" error={errors.stock}>
+              <TextInput
+                type="number"
+                min="0"
+                value={product.stockQuantity ?? 0}
+                onChange={(e) => onChange({ stockQuantity: Number(e.target.value) })}
+              />
+            </FormField>
+            <FormField label="Low stock threshold">
+              <TextInput
+                type="number"
+                min="0"
+                value={product.lowStockThreshold}
+                onChange={(e) => onChange({ lowStockThreshold: Number(e.target.value) })}
+              />
+            </FormField>
+          </div>
+        )}
+        <Toggle
+          checked={product.backorders !== "no"}
+          onChange={(enabled) => onChange({ backorders: enabled ? "notify" : "no" })}
+          label="Allow purchases when out of stock"
+        />
+      </div>
+    </section>
+  );
+}

@@ -3,15 +3,49 @@ export type ProductType = "simple" | "variable";
 export type StockStatus = "instock" | "outofstock" | "onbackorder";
 export type InventoryFilter = "all" | "in-stock" | "low-stock" | "out-of-stock";
 export type PriceFilter = "all" | "under-50" | "50-100" | "over-100";
-export type ProductSort = "newest" | "oldest" | "name-asc" | "name-desc" | "price-high" | "price-low" | "stock-high" | "stock-low";
+export type ProductSort =
+  | "newest"
+  | "oldest"
+  | "name-asc"
+  | "name-desc"
+  | "price-high"
+  | "price-low"
+  | "stock-high"
+  | "stock-low";
 
-export interface ProductCategory { id: number; name: string; slug: string; }
-export interface ProductImage { id: number; src: string; alt: string; }
+export interface ProductCategory {
+  id: number;
+  name: string;
+  slug: string;
+}
+export interface ProductImage {
+  id: number;
+  src: string;
+  alt: string;
+}
 export type Backorders = "no" | "notify" | "yes";
-export interface ProductDimensions { length: string; width: string; height: string; }
-export interface ProductOption { id: number; name: string; values: string[]; }
-export interface ProductVariant { id: number; name: string; sku: string; price: string; stockQuantity: number; stockStatus: StockStatus; }
-export interface ProductSeo { title: string; description: string; }
+export interface ProductDimensions {
+  length: string;
+  width: string;
+  height: string;
+}
+export interface ProductOption {
+  id: number;
+  name: string;
+  values: string[];
+}
+export interface ProductVariant {
+  id: number;
+  name: string;
+  sku: string;
+  price: string;
+  stockQuantity: number;
+  stockStatus: StockStatus;
+}
+export interface ProductSeo {
+  title: string;
+  description: string;
+}
 
 /** Product fields intentionally align with a future WooCommerce response mapper. */
 export interface Product {
