@@ -26,6 +26,7 @@ const tabs: Array<{ label: string; value: CustomerView }> = [
   { label: "High value", value: "high-value" },
   { label: "No orders", value: "no-orders" },
 ];
+// Filter segments can overlap; "new" uses the fixed demo month, not the badge rules.
 const isType = (customer: Customer, type: CustomerTypeFilter | CustomerView) =>
   type === "all" ||
   (type === "new" && new Date(customer.dateCreated) >= new Date("2026-08-01")) ||
@@ -34,6 +35,7 @@ const isType = (customer: Customer, type: CustomerTypeFilter | CustomerView) =>
   (type === "no-orders" && customer.ordersCount === 0);
 
 export function CustomersPage({ initialCustomers }: { initialCustomers: Customer[] }) {
+  // Bulk edits affect this mounted view only; the source fixtures are not persisted.
   const [records, setRecords] = useState(initialCustomers);
   const [view, setView] = useState<CustomerView>("all");
   const [query, setQuery] = useState("");
@@ -67,6 +69,7 @@ export function CustomersPage({ initialCustomers }: { initialCustomers: Customer
           (spent === "100-500" && amount >= 100 && amount <= 500) ||
           (spent === "over-500" && amount > 500);
         const joinedAt = new Date(customer.dateCreated);
+        // Relative ranges are anchored to the August 2026 demo snapshot.
         const joinedMatch =
           joined === "all" ||
           (joined === "7-days" && joinedAt >= new Date("2026-08-23")) ||
@@ -98,6 +101,7 @@ export function CustomersPage({ initialCustomers }: { initialCustomers: Customer
       });
   }, [joined, location, orders, query, records, sort, spent, type, view]);
   const totalPages = Math.max(1, Math.ceil(filteredCustomers.length / PAGE_SIZE));
+  // Local record changes can shrink the result set without changing the requested page.
   const safePage = Math.min(page, totalPages);
   const visibleCustomers = filteredCustomers.slice(
     (safePage - 1) * PAGE_SIZE,
@@ -113,6 +117,7 @@ export function CustomersPage({ initialCustomers }: { initialCustomers: Customer
     joined !== "all" ||
     sort !== "newest",
   );
+  // A narrower result set may no longer contain the current page.
   const updateFilter =
     <T,>(setter: (value: T) => void) =>
     (value: T) => {
@@ -137,6 +142,7 @@ export function CustomersPage({ initialCustomers }: { initialCustomers: Customer
       else next.add(id);
       return next;
     });
+  // Toggle only this page, preserving selections hidden by pagination or filters.
   const selectAllVisible = () =>
     setSelected((current) => {
       const next = new Set(current);
@@ -144,6 +150,7 @@ export function CustomersPage({ initialCustomers }: { initialCustomers: Customer
       visibleCustomers.forEach((item) => (allSelected ? next.delete(item.id) : next.add(item.id)));
       return next;
     });
+  // The demo bulk action adds VIP once; removal clears every tag on selected records.
   const updateSelected = (action: "add" | "remove") =>
     setRecords((current) =>
       current.map((item) =>

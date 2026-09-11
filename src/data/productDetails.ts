@@ -7,6 +7,7 @@ const descriptions: Record<string, string> = {
     "Comfortable low-profile sneakers with a cushioned sole and clean, versatile finish for daily wear.",
 };
 
+// Seed illustrative variants; quantities are not an allocation of the parent stock total.
 function variantsFor(product: Product): ProductVariant[] {
   if (product.type !== "variable") return [];
   return ["Natural / S", "Natural / M", "Black / L", "Black / XL"].map((name, index) => ({
@@ -19,6 +20,7 @@ function variantsFor(product: Product): ProductVariant[] {
   }));
 }
 
+// Supply demo-only detail fields and estimated metrics absent from the list fixtures.
 export function getProductDetails(product: Product): ProductDetails {
   const secondaryImages = ["/products/accessory.svg", "/products/home.svg"];
   return {

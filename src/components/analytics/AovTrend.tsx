@@ -3,6 +3,7 @@ import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "rec
 import type { AnalyticsTimePoint } from "@/types/analytics";
 const money = new Intl.NumberFormat("en-IE", { style: "currency", currency: "EUR" });
 export function AovTrend({ data, change }: { data: AnalyticsTimePoint[]; change: number }) {
+  // This summarizes chart points equally, rather than weighting AOV by each point's orders.
   const current = data.length ? data.reduce((sum, item) => sum + item.aov, 0) / data.length : 0;
   return (
     <section className="admin-card min-w-0">

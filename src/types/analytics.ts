@@ -10,6 +10,7 @@ export interface AnalyticsKpi {
   label: string;
   value: string;
   change: number;
+  // Whether the change is favorable; a decrease in refunds is positive.
   positive: boolean;
 }
 export interface ProductPerformance {
@@ -41,6 +42,7 @@ export interface SalesSourceAnalytics {
 }
 export interface AnalyticsRangeData {
   series: AnalyticsTimePoint[];
+  // Percent changes ordered as sales, orders, AOV, customers, returning rate, refunds.
   comparisonChanges: number[];
   conversion: ConversionAnalytics;
   sources: SalesSourceAnalytics[];

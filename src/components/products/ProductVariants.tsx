@@ -15,6 +15,7 @@ export function ProductVariants({
         variant.id === id ? { ...variant, ...patch } : variant,
       ),
     });
+  // Option labels are edited independently; changing them does not regenerate variants.
   const updateOption = (id: number, values: string) =>
     onChange({
       options: product.options.map((option) =>

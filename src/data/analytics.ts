@@ -1,4 +1,5 @@
 import type { AnalyticsRange, AnalyticsRangeData, AnalyticsTimePoint } from "@/types/analytics";
+// Deterministic variation keeps demo charts stable without random values or live traffic.
 const points = (labels: string[], base: number): AnalyticsTimePoint[] =>
   labels.map((label, index) => {
     const revenue = Math.round(base * (0.78 + ((index * 7) % 5) * 0.11));

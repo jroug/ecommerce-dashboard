@@ -20,11 +20,13 @@ export function CustomerDetailsPage({
   initialCustomer: CustomerDetails;
   orders: Order[];
 }) {
+  // Profile, tag, and note edits live only in this mounted client component.
   const [customer, setCustomer] = useState(initialCustomer);
   const [editing, setEditing] = useState(false);
   const update = (patch: Partial<CustomerDetails>) =>
     setCustomer((current) => ({ ...current, ...patch }));
   const addNote = (text: string) => {
+    // Keep new activity on the same fixed date as the rest of the demo.
     const note = { id: Date.now(), text, date: "2026-08-30T12:00:00Z", author: "Admin" };
     update({
       notes: [note, ...customer.notes],

@@ -10,6 +10,7 @@ export function ProductMedia({
 }) {
   const remove = (id: number) =>
     onChange({ images: product.images.filter((image) => image.id !== id) });
+  // Simulate adding media by cycling through bundled assets; no file upload occurs.
   const add = () => {
     const sources = ["/products/apparel.svg", "/products/accessory.svg", "/products/home.svg"];
     const id = Date.now();

@@ -5,6 +5,7 @@ import { getProductDetails } from "@/data/productDetails";
 import { productCategories, products } from "@/data/products";
 
 export default async function ProductDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  // Next.js supplies route params asynchronously, even for this local fixture lookup.
   const { id } = await params;
   const product = products.find((item) => String(item.id) === id);
   return (

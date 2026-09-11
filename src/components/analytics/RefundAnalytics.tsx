@@ -1,6 +1,7 @@
 import type { Order } from "@/types/order";
 const money = new Intl.NumberFormat("en-IE", { style: "currency", currency: "EUR" });
 export function RefundAnalytics({ orders }: { orders: Order[] }) {
+  // Either status marks a full-order refund; the fixtures do not model partial refunds.
   const refunded = orders.filter(
     (order) => order.status === "refunded" || order.paymentStatus === "refunded",
   );

@@ -1,5 +1,6 @@
 import type { Customer } from "@/types/customer";
 
+// Choose one badge by precedence; "new" is the fallback, regardless of registration date.
 export function getCustomerType(customer: Customer) {
   if (customer.ordersCount === 0) return "no-orders" as const;
   if (Number(customer.totalSpent) >= 500) return "high-value" as const;

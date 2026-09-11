@@ -1,5 +1,6 @@
 import type { Product } from "@/types/product";
 export type InventoryState = "in-stock" | "low-stock" | "out-of-stock";
+// Explicit unavailability or zero quantity wins; low-stock warnings require tracked inventory.
 export function getInventoryState(product: Product): InventoryState {
   if (product.stockStatus === "outofstock" || product.stockQuantity === 0) return "out-of-stock";
   if (

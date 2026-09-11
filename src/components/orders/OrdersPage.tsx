@@ -31,6 +31,7 @@ export function OrdersPage({ initialOrders }: { initialOrders: Order[] }) {
 
   const filteredOrders = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
+    // Anchor relative filters to the mock dataset so results do not age with the real clock.
     const referenceDate = new Date("2026-08-29T23:59:59Z");
     return initialOrders
       .filter((order) => {
@@ -71,6 +72,7 @@ export function OrdersPage({ initialOrders }: { initialOrders: Order[] }) {
     setSort("newest");
     setPage(1);
   };
+  // A narrower result set may no longer contain the current page.
   const updateFilter =
     <T,>(setter: (value: T) => void) =>
     (value: T) => {
@@ -84,6 +86,7 @@ export function OrdersPage({ initialOrders }: { initialOrders: Order[] }) {
       else next.add(id);
       return next;
     });
+  // Toggle only this page, preserving selections hidden by pagination or filters.
   const selectAllVisible = () =>
     setSelected((current) => {
       const next = new Set(current);

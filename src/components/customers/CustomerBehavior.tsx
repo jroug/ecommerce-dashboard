@@ -1,6 +1,7 @@
 import type { CustomerDetails } from "@/types/customer";
 const date = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" });
 export function CustomerBehavior({ customer }: { customer: CustomerDetails }) {
+  // Measure recency against the fixed demo date to keep fixture-based values stable.
   const days = customer.lastOrderDate
     ? Math.max(
         0,

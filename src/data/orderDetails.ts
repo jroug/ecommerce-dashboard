@@ -50,11 +50,13 @@ const statusTitle: Record<OrderStatus, string> = {
   failed: "Payment failed",
 };
 
+// Enrich list fixtures with synthetic payment, fulfillment, and timeline details for the demo.
 export function getOrderDetails(order: Order): OrderDetails {
   const shipping = addressFor(order);
   const paid = order.paymentStatus === "paid";
   const fulfilled = order.status === "completed";
   const shipped = order.status === "processing" && paid;
+  // Order 1048 showcases the full totals breakdown and customer notes.
   const special = order.id === 1048;
   return {
     ...order,

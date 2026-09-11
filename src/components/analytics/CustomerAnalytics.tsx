@@ -1,6 +1,7 @@
 import type { Customer } from "@/types/customer";
 const money = new Intl.NumberFormat("en-IE", { style: "currency", currency: "EUR" });
 export function CustomerAnalytics({ customers }: { customers: Customer[] }) {
+  // The cohort is range-filtered upstream, but spend and order counts are lifetime values.
   const returning = customers.filter((customer) => customer.ordersCount > 1).length;
   const totalSpent = customers.reduce((sum, customer) => sum + Number(customer.totalSpent), 0);
   const totalOrders = customers.reduce((sum, customer) => sum + customer.ordersCount, 0);

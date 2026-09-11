@@ -100,6 +100,7 @@ export function ProductsPage({
     setSort("newest");
     setPage(1);
   };
+  // A narrower result set may no longer contain the current page.
   const updateFilter =
     <T,>(setter: (value: T) => void) =>
     (value: T) => {
@@ -113,6 +114,7 @@ export function ProductsPage({
       else next.add(id);
       return next;
     });
+  // Toggle only this page, preserving selections hidden by pagination or filters.
   const selectAllVisible = () =>
     setSelected((current) => {
       const next = new Set(current);

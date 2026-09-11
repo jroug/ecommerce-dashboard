@@ -28,6 +28,7 @@ const money = new Intl.NumberFormat("en-IE", {
   currency: "EUR",
   maximumFractionDigits: 2,
 });
+// Date ranges follow the fixed August 2026 demo snapshot.
 const cutoffs: Record<AnalyticsRange, string> = {
   today: "2026-08-30T00:00:00Z",
   "7d": "2026-08-23T00:00:00Z",
@@ -46,6 +47,7 @@ export function AnalyticsPage({
 }) {
   const [range, setRange] = useState<AnalyticsRange>("30d");
   const [compare, setCompare] = useState(true);
+  // Charts and comparisons use synthetic fixtures; totals below come from filtered orders.
   const data = analyticsRanges[range];
   const filteredOrders = useMemo(
     () => orders.filter((order) => new Date(order.dateCreated) >= new Date(cutoffs[range])),
@@ -53,6 +55,7 @@ export function AnalyticsPage({
   );
   const selectedCustomerIds = new Set(filteredOrders.map((order) => order.customer.id));
   const filteredCustomers = customers.filter((customer) => selectedCustomerIds.has(customer.id));
+  // Sales and AOV include every order status; refunds are reported separately.
   const sales = filteredOrders.reduce((sum, order) => sum + Number(order.total), 0);
   const refunded = filteredOrders
     .filter((order) => order.status === "refunded" || order.paymentStatus === "refunded")
@@ -95,6 +98,7 @@ export function AnalyticsPage({
         };
         current.units += item.quantity;
         current.revenue += Number(item.total);
+        // Multiple lines for the same product still count as one order.
         current.orders.add(order.id);
         map.set(item.productId, current);
       }),
@@ -117,6 +121,7 @@ export function AnalyticsPage({
     const map = new Map<string, { revenue: number; units: number }>();
     filteredOrders.forEach((order) =>
       order.lineItems.forEach((item) => {
+        // Order fixtures use IDs absent from the catalog, so unmatched items remain in "Other".
         const name = productCategories.get(item.productId) ?? "Other";
         const current = map.get(name) ?? { revenue: 0, units: 0 };
         current.revenue += Number(item.total);

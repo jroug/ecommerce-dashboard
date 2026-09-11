@@ -1,6 +1,7 @@
 import type { Customer, CustomerDetails } from "@/types/customer";
 import type { Order } from "@/types/order";
 
+// Combine available order history with illustrative profile notes and timeline events.
 export function getCustomerDetails(customer: Customer, customerOrders: Order[]): CustomerDetails {
   const sorted = [...customerOrders].sort(
     (a, b) => new Date(a.dateCreated).getTime() - new Date(b.dateCreated).getTime(),

@@ -24,6 +24,7 @@ export function ProductDetailsForm({
   categories: ProductCategory[];
 }) {
   const [product, setProduct] = useState(initialProduct);
+  // Keep a separate snapshot so nested field edits participate in the unsaved-change check.
   const [savedProduct, setSavedProduct] = useState(initialProduct);
   const [attemptedSave, setAttemptedSave] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -37,6 +38,7 @@ export function ProductDetailsForm({
       Number(product.price) < 0
     )
       next.price = "Enter a valid price.";
+    // SKU and quantity are required only when inventory tracking is enabled.
     if (product.manageStock && !product.sku.trim())
       next.sku = "SKU is required when inventory is tracked.";
     if (product.manageStock && (product.stockQuantity === null || product.stockQuantity < 0))
@@ -44,6 +46,7 @@ export function ProductDetailsForm({
     return next;
   }, [product]);
 
+  // Warn on document unload; this does not intercept Next.js client-side navigation.
   useEffect(() => {
     const warnBeforeLeaving = (event: BeforeUnloadEvent) => {
       if (dirty) event.preventDefault();
@@ -56,6 +59,7 @@ export function ProductDetailsForm({
     setSaved(false);
     setProduct((current) => ({ ...current, ...patch }));
   };
+  // Saving advances the local baseline only; no API or durable storage is connected.
   const saveProduct = () => {
     setAttemptedSave(true);
     if (Object.keys(errors).length > 0) return;

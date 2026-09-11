@@ -5,6 +5,7 @@ import { getOrderDetails } from "@/data/orderDetails";
 import { orders } from "@/data/orders";
 
 export default async function OrderDetailsRoute({ params }: { params: Promise<{ id: string }> }) {
+  // Next.js supplies route params asynchronously, even for this local fixture lookup.
   const { id } = await params;
   const baseOrder = orders.find((order) => String(order.id) === id);
   return (

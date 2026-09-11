@@ -16,6 +16,7 @@ function SelectAllCheckbox({
   onChange: () => void;
 }) {
   const ref = useRef<HTMLInputElement>(null);
+  // The mixed checkbox state is a DOM property, not a declarative HTML attribute.
   useEffect(() => {
     if (ref.current) ref.current.indeterminate = indeterminate;
   }, [indeterminate]);

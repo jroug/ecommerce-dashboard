@@ -7,6 +7,7 @@ import type {
   TopProduct,
 } from "@/types/dashboard";
 
+// Dashboard revenue fixtures are in USD, independent of the EUR order dataset.
 export const dashboardPeriods: Record<DateRange, DashboardPeriod> = {
   "7d": {
     stats: [
