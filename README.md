@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# E-commerce Admin Dashboard
+
+## Overview
+
+A basic e-commerce administration dashboard built with Next.js, presented under the Northstar Commerce demo brand. This portfolio project focuses on dashboard layout, navigation, reusable components, and everyday store-management interactions.
+
+**The current application uses mock data and is not connected to a live e-commerce backend.** It demonstrates the frontend experience and architecture, rather than a production administration system.
+
+## Concept
+
+The intended experience is a simplified workspace for e-commerce clients: essential information and common actions for orders, products, customers, and store performance.
+
+The goal is not to recreate the full WordPress or WooCommerce administration interface. In a future integration, WooCommerce would remain the underlying e-commerce system and source of truth, while this application would provide a focused, client-friendly interface on top of it.
+
+## Current Features
+
+| Area                                 | Implemented experience                                                                                                                                                      |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Dashboard (`/dashboard`)             | KPI cards, selectable demo periods, a revenue chart, order-status summaries, recent orders, top products, and inventory alerts.                                             |
+| Orders (`/orders`)                   | Search, status/payment/date filters, sorting, pagination, and row selection.                                                                                                |
+| Order details (`/orders/[id]`)       | Item and totals breakdowns, customer and address information, payment and fulfillment summaries, and a sample activity timeline.                                            |
+| Products (`/products`)               | Search, category/status/inventory/price filters, sorting, pagination, and row selection.                                                                                    |
+| Product details (`/products/[id]`)   | Local editing of product information, pricing, inventory, variants, shipping, SEO, categories, and tags; sample media controls, validation, and local save feedback.        |
+| Customers (`/customers`)             | Summary metrics, search, segment and attribute filters, sorting, pagination, selection, and local bulk tagging/removal of records.                                          |
+| Customer details (`/customers/[id]`) | Profile and address editing, order history, summary metrics, behavior information, editable tags, and local notes with timeline entries.                                    |
+| Analytics (`/analytics`)             | Date-range selection, comparison display, sales/orders/AOV charts, product and category performance, customer and refund summaries, a conversion funnel, and sales sources. |
+
+Shared UI includes responsive layouts, navigation between the main sections, loading skeletons, empty and no-results states, and missing-record views. The root route redirects to `/dashboard`.
+
+Product saves and customer changes exist only in component state: they are not persisted or synchronized between pages. The creation routes (`/orders/new`, `/products/new`, and `/customers/new`) are placeholders. Export/import, order-management actions, and several shell controls are visual affordances without working backend workflows; settings and coupon pages are not implemented.
+
+## Demo Data
+
+Mock data is intentional: it allows the frontend and dashboard architecture to develop independently of a specific backend.
+
+Fixtures live in `src/data`, with separate TypeScript models in `src/types`. Detail helpers enrich list records with illustrative information, and components receive typed data through props. These boundaries provide places to introduce API data and response mapping later; an API adapter is not implemented yet.
+
+Demo dates are fixed to an August 2026 snapshot. Analytics combine calculations from sample orders with synthetic chart, comparison, and traffic data. Dashboard revenue fixtures use USD, while order, product, and customer views use EUR. The fixtures illustrate the UI and should not be treated as a reconciled set of store reports.
+
+## Future WooCommerce Integration
+
+WordPress + WooCommerce is the planned headless e-commerce backend. A future server-side integration could retrieve products, orders, customers, and analytics/reporting data through the WooCommerce REST API and map responses into the dashboard's frontend models.
+
+The proposed flow is:
+
+```text
+Dashboard UI → Next.js server-side integration → WooCommerce REST API
+```
+
+Authorized management actions would write back to WooCommerce, keeping it the source of truth. API access, credential handling, authentication, permissions, persistence, and reporting integration are all future work. No WooCommerce connection is currently implemented.
+
+## Tech Stack
+
+- **Next.js 16.3.3** — App Router, page/layout components, dynamic routes, and loading UI.
+- **React 19.2.8 and TypeScript 5** — components, typed data models, and local state.
+- **Tailwind CSS 4 and CSS custom properties** — styling and shared design tokens.
+- **Recharts 3** — dashboard and analytics charts.
+- **Lucide React** — interface icons.
+- **ESLint 9 and Prettier 3** — linting and formatting.
+
+## Architecture
+
+```text
+src/
+├── app/          # Routes, root layout, loading boundaries, and global styles
+├── components/   # Dashboard, orders, products, customers, and analytics UI
+├── data/         # Mock records, chart fixtures, and detail-building helpers
+└── types/        # Frontend models for each domain
+public/           # Static assets, including product illustrations
+```
+
+App Router pages compose a shared `AppShell` with feature components. Server pages look up local records for detail routes and pass data to the UI. Client Components handle filtering, sorting, selection, charts, and editable form state using React hooks.
+
+Data models are separate from presentation, and the order, product, and customer types anticipate a future WooCommerce response mapper. Replacing fixtures will still require a data-access layer, response mapping, and changes to connect local interactions to persistent operations. There are currently no application API routes or server actions.
 
 ## Getting Started
 
-First, run the development server:
+Use Node.js **20.9 or newer** and npm. From the project directory:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [localhost:3000](http://localhost:3000); the application redirects to the dashboard. No backend setup, API credentials, or environment variables are required for the mock-data version.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To build and run locally in production mode:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+Available quality checks:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+npm run format:check
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run `npm run format` to apply Prettier formatting across the project.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Status
 
-## Deploy on Vercel
+This is a frontend portfolio implementation demonstrating the concept, UI, and component/data organization of a simplified e-commerce administration dashboard. It is not ready to administer a live store: authentication, authorization, backend integration, and durable data changes are not implemented.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Future Improvements
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Possible next steps include:
+
+- WooCommerce API integration with typed response mapping and error handling.
+- Authentication and role-based permissions for store administrators and clients.
+- Live order data, refresh strategies, and webhook-driven updates.
+- Persistent product creation, editing, inventory changes, and media uploads.
+- Order management and fulfillment workflows.
+- Persistent customer management, notes, and tags.
+- Expanded analytics backed by consistent store and reporting data.
+- Completion of placeholder actions and navigation controls.
